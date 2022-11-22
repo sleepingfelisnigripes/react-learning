@@ -11,9 +11,15 @@ React learning and project practice.
 5. React特点
     1. 采用组件化模式，声明式编码，提高开发效率及组件复用率(和命令式编码区别)
     2. 在React Native中可以使用React语法进行移动端开发
-    3. 使用虚拟DOM+优秀Diffing算法，尽量减少与真实DOM的交互
-     
-
+    3. 使用虚拟DOM+优秀Diffing算法，尽量减少与真实DOM的交互  
+6. 学习React之前需要掌握的JavaScript基础知识
+    1. 判断this的指向
+    2. class类
+    3. ES6语法规范
+    4. npm包管理器
+    5. 原型，原型链
+    6. 数组常用方法
+    7. 模块化  
 
 
 
