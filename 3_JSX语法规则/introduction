@@ -1,0 +1,18 @@
+XML: 
+<student>
+    <name>Tom</student>
+    <age>19</age>
+</student>
+
+Json:
+{'name':'Tom','age':'19'}
+
+JSX:
+1. 全称： javascript XML
+2. react定义的一种类似XML的JS扩展语法：JS+XML
+3. 本质是React.createElement(component,props,……children)方法的语法糖
+4. 作用：用来简化创建虚拟DOM
+    1. 写法：var ele=<h1>hello JSX</h1>
+    2. 注意：他不是字符串，也不是HTML/XML标签
+    3. 注意：他最终产生的就是一个JS对象
+5. 标签名任意： HTML标签或其他标签

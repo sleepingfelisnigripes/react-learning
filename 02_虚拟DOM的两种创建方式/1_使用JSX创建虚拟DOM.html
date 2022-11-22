@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>hello_react</title>
+        <title>1_使用JSX创建虚拟DOM</title> <!--区别在脚本中加入虚拟DOM加入id-->
     </head>
     <body>
         <!--准备好一个‘容器’-->
@@ -20,9 +20,14 @@
         <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
         <script type="text/babel">
             //1.创建虚拟DOM
-            const VDOM = <h1>Hello,React</h1> /*此处一定不要加引号因为不是字符串*/
+            const VDOM = (
+                <h1 id='title'>
+                    <span>Hello,React</span>
+                </h1> 
+            /*此处一定不要加引号因为不是字符串*/ /*唯一区别在这里加入id*/
+            )
             //2.渲染虚拟DOM到页面
-            //ReactDOM.render(虚拟DOM, 容器）
+            //ReactDOM.render(虚拟DOM, 容器)
             ReactDOM.render(VDOM, document.getElementById('test'))
         </script>
 

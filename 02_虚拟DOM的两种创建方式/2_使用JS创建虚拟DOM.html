@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>hello_react</title>
+        <title>1_使用JS创建虚拟DOM</title>  <!--区别在于不需要label翻译-->
+        <!--这个方法不常用，一般用JSX-->
     </head>
     <body>
         <!--准备好一个‘容器’-->
@@ -14,13 +15,15 @@
         <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
         <!--引入react-dom.用于支持react操作DOM-->
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        <!--引入babel,用于将jsx转为js-->
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
+        
         <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
-        <script type="text/babel">
+        <script type="text/javascript">
+            
             //1.创建虚拟DOM
-            const VDOM = <h1>Hello,React</h1> /*此处一定不要加引号因为不是字符串*/
+            //const VDOM = React.createElement(标签名，标签属性，标签内容)
+            const VDOM = React.createElement('h1',{id:'title'},'Hello,React')
+            //这样写不如JSX，因为如果嵌套多个标签，会多个createElement,非常繁琐
+
             //2.渲染虚拟DOM到页面
             //ReactDOM.render(虚拟DOM, 容器）
             ReactDOM.render(VDOM, document.getElementById('test'))

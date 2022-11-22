@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_虚拟DOM与真实DOM</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div> <!--真实DOM-->
+        <div id="demo"></div> <!--真实DOM-->
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+            //1.创建虚拟DOM
+            const VDOM = (
+                <h1 id='title'>
+                    <span>Hello,React</span>
+                </h1> 
+            /*此处一定不要加引号因为不是字符串*/ /*唯一区别在这里加入id*/
+            )
+            //2.渲染虚拟DOM到页面
+            //ReactDOM.render(虚拟DOM, 容器）
+            ReactDOM.render(VDOM, document.getElementById('test'))
+
+            //获取真实DOM
+            const TDOM = document.getElementById('demo')
+
+            console.log('虚拟DOM',VDOM); //用这个判断VDOM是什么--Object一般对象
+            console.log(typeof VDOM); //判断VDOM是什么
+            console.log(VDOM instanceof Object); //判断VDOM是Object吗
+            console.log('真实DOM',TDOM);
+            debugger; //真实DOM在控制台看不到，用debugger断点看一下内容
+
+            /*
+                1.本质是Object类型的对象(一般对象)
+                2.虚拟DOM比较轻，真实DOM比较重，因为虚拟DOM是react内部在用，无需真实DOM上的那么多属性
+                3.虚拟DOM最终会被react转化成真实DOM，成现在页面上
+            */
+        </script>
+
+    </body> 
+</html>
