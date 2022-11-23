@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_函数式组件</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+            //1.创建函数式组件
+            //组件名字首字母大写，不然会认为渲染的是html标签
+            function MyComponent(){
+                console.log(this); /*此处this不会指向window，是undefined，因为babel编译后开启了严格模式*/
+                return <h2>我是用函数定义的组件(适用于【简单组件】的定义)</h2>;
+            }
+            //2.渲染组件到页面
+            ReactDOM.render(<MyComponent/>,document.getElementById('test'));
+            /*
+                执行了ReactDOM.render(<MyComponent/>,document.getElementById('test'))之后，发生了什么？
+                    1. React解析组件标签，找到了MyComponent组件
+                    2. 发现组件是使用函数定义的，随后调用该函数，将返回的虚拟DOM转为真实DOM，随后呈现在页面中
+            */
+
+            /*首字母必须大写，函数必须有返回值，渲染里面必须有组件标签，不能直接写组件的名字*/
+        </script>
+
+    </body> 
+</html>

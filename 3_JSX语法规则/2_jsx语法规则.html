@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>jsx语法规则</title> <!--区别在脚本中加入虚拟DOM加入id-->
+        <style>
+            .title{
+                background-color: orange;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+            //1.创建虚拟DOM
+
+            const myId = 'aTgUiGu'
+            const myData = 'HeLlo,REaCt'
+
+            const VDOM = (
+                <div>
+                    <h2 className="title" id={myId.toLowerCase()}>
+                        <span style={{color:'white',fontSize:'29px'}}>{myData.toLowerCase()}</span>
+                        {/*内连样式的style用两个{{}},外面的{}表示的是引用JS，内部{}表示的是对象而不是函数数组*/}
+                    </h2>
+                    <h2 className="title" id={myId.toUpperCase()}>
+                        <span style={{color:'white',fontSize:'29px'}}>{myData.toLowerCase()}</span>
+                        {/*内连样式的style用两个{{}},外面的{}表示的是引用JS，内部{}表示的是对象而不是函数数组*/}
+                    </h2>
+                    <input type='text'/>
+                </div>
+            )
+
+            //2.渲染虚拟DOM到页面
+            ReactDOM.render(VDOM, document.getElementById('test'))
+
+            /*
+                JSX语法规则：
+                1. 定义虚拟DOM时，不需要写引号
+                2. 标签中混入JS表达式的时候用{}，注意是‘表达式’
+                3. 样式类名指定不要用class，要用className
+                4. 内连样式要用style={{key:value}}的形式去写
+                5. 虚拟DOM必须只有一个根标签
+                6. 标签必须闭合，比如<input type='text'>,要写成<input type='text'></input>或者<input type='text'/>
+                7. 标签首字母
+                    1. 若小写字母开头，则将改标签转成HTML中同名元素，若HTML中无改标签对应的同名元素，则报错
+                    2. 若大写字母开头，react就去渲染对应的组件，若组件没有定义，则报错
+            */
+        </script>
+
+    </body> 
+</html>

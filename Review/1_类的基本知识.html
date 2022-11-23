@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>1_类的基本知识</title>
+    </head>
+    <body>
+        <script type="text/javascript">      
+            //1.创建一个Person类
+            class Person{
+                //构造器方法
+                constructor(name,age){
+                    //构造器中的this是谁？-类的实例对象
+                    this.name = name;
+                    this.age = age;
+                }
+                //一般方法
+                speak(){
+                    //speak方法放在哪里？--类的原型对象上，供实例使用
+                    //通过person实例调用speak时，speak中的this就是Person实例（不是绝对，call等函数可以更改this指向）
+                    console.log(`我叫${this.name}，我的名字是${this.age}`);
+                }
+            }
+
+            class Dog{
+            }
+
+            //创建一个Person的实力对象
+            const p1 = new Person('tom',18);
+            const p2 = new Person('jerry',19);
+            const d1 = new Dog();
+
+            console.log(p1);
+            console.log(p2);
+            console.log(d1);
+
+            p1.speak();
+            p2.speak();
+            p1.speak.call({a:1,b:2}) //call的功能之一就是更改函数中的this指向
+
+
+            //类的继承：
+            //创建一个Student类，集成于Person类
+            class Student extends Person {
+                //Person的构造器已经有name和age,子类Student直接就把父类的构造器搬过来直接用。
+                //注意：类可以没有构造函数因为可以从父类继承
+                constructor(name,age,grade){
+                    //name和age在父类中写了，是继承的父类Person，用super继承,super放在最前面
+                    super(name,age);
+                    this.grade = grade;
+                    //可以有不需要传的
+                    this.school = 'UOM';
+                }
+                //类的一般方法speak也会继承，可以直接在Student的实例中使用，
+                //但是如果有改变，要重写父类的方法speak
+                speak(){
+                    console.log(`我叫${this.name}，我的名字是${this.age}，我读的是${this.grade}年级。`);
+                }
+                //study方法放在哪里？--类的原型对象上，供实例使用
+                //通过Student实例调用study时，study中的this就是Student实例（不是绝对，call等函数可以更改this指向） 
+                study(){
+                    console.log(`我很努力的学习。`)
+                }
+            }
+
+            const s1 = new Student('小张',15,'高一');
+            console.log(s1);
+            s1.speak();
+            s1.study();
+
+            /*
+                总结：
+                 1. 类中的构造器不是必须写的，对实例进行一些初始化的操作，如添加指定属性时才写。
+                 2. 如果A类继承了B类，且A类中写了构造器，那么A类构造器中的super时必须要调用的。
+                 3. 类中所定义的方法，都是放在了类的原型对象上，供实例去使用。
+            */
+        </script>
+    </body> 
+</html>
