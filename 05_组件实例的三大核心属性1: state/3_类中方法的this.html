@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_类中方法的this</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+            //1.创建类式组件 
+            class Weather extends React.Component{
+                //借助构造器初始化状态以及在render读取使用
+                constructor(props){
+                    //有父类继承构造器必须调用super
+                    super();
+                    //this.state内容是对象
+                    //初始化状态
+                    //构造器中的this就是Weather的实例对象
+                    this.state = {wind:'微风',isHot:false,};
+
+                    //解决changeWeather中this指向问题
+                    this.change = this.changWeather.bind(this);//实例对象就多了一个方法：changeWeather
+                    //bind两个作用：帮你生成新的函数，帮你改了函数中的this
+                }
+                render(){
+                    console.log("render中：",this);//this指的是组件实例对象
+                    //读取状态
+                    const {isHot} = this.state;
+                    return <h1 onClick={this.change}>今天天气很{isHot?'炎热':'凉爽'}</h1>       
+                }
+                changWeather(){
+                    //changeweather放在哪里？-- Weather的原型对象上，供实例使用
+                    //由于changeWeather是作为onclick的回调，所以不是通过实例调用，是直接调用
+                    //类中的方法默认开启局部的严格模式，所以changeWeather中的this有问题，为undefined。
+                    console.log("changeWeather中：",this);
+                }
+            }
+            //2.渲染组件到页面
+            ReactDOM.render(<Weather/>,document.getElementById('test'));
+
+            /* 
+                在类里面写而不是在把函数放在外面,在类里面写的时候不加function字样
+                function changWeather(){
+                    console.log('修改isHot的值');
+                    这块不能用this函数改变Weather的state，因为这块儿this根本接触不到实例对象
+                } 
+            */
+
+        </script>
+
+    </body> 
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>2_原生事件绑定的方式</title>
+    </head>
+    <body>
+        <button id="btn1">button1</button>
+        <button id='btn2'>button2</button>
+        <button onclick="click()" id="btn3">button3</button>
+
+        <script type="text/javascript">
+            const btn1 = document.getElementById('btn1');
+            btn1.addEventListener('click',()=>{
+                alert('button1 is clicked!');
+            })
+
+            const btn2 = document.getElementById('btn2');
+            btn2.onclick = () => {
+                alert("button2 is clicked!");
+            }
+
+            function click(){
+                alert("button3 is clicked!");
+            }
+        </script>
+    </body> 
+</html>

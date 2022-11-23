@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_类中的方法this的指向</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function demo(){
+                console.log(this);
+            }
+            demo();//直接调用，console输出window
+            demo.bind({a:1,b:2}); //console不会输出任何东西
+            //.bind方法返回的是一个新函数，新函数没用调用
+            //调用方法
+            const x = demo.bind({a:1,b:2});
+            x();
+        </script>
+    </body> 
+</html>

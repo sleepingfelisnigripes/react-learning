@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_类中的方法this的指向</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            class Person{
+                constructor(name,age){
+                    this.name = name;
+                    this.age = age;
+                }
+                //study放在哪里？-- 类的原型对象上，供实例使用
+                //通过Person的实例调用study时，study中的this就是Person实例
+                //类中所有定义的方法都开启了严格模式，所以不能指向window
+                study(){
+                    console.log(this);
+                }
+            }
+            const p1 = new Person('tom',18);
+            p1.study();//通过实例调用speak方法
+
+            const x = p1.study;//赋值语句，不再是实例调用，而是直接调用，所以undefined
+            x() //结果是undefined而不是p1，因为这个直接调用，因为study时严格模式，所以不行
+        </script>
+    </body> 
+</html>

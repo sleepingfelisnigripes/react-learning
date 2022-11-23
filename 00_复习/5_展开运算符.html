@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>5_展开运算符</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            let arr1 = [1,3,5,7,9];
+            let arr2 = [2,4,6,8,10];
+
+            //展开一个数组
+            console.log(...arr1);
+
+            //连接两个数组
+            let arr3 = [...arr1,...arr2];
+            console.log(arr3);
+
+            //函数中使用(参数数量不固定)
+            function sum(...numbers){
+                return numbers.reduce((prevalue,current)=>{
+                    return prevalue+current;
+                });
+            }
+            console.log(sum(1,2,3,4,5));
+
+            //展开运算符不能应用于对象（展开运算符不能展开对象）
+            let person = {name:'tom',age:'17'};
+            //console.log(...person);//报错，展开运算符不能展开对象 
+            
+            //构造字面量对象时使用展开语法
+            let person2 = {...person};//不报错，克隆对象，外侧有{}可以复制一个对象
+            console.log("person2: ",person2);
+            
+            let person3 = person;
+            console.log("person3:",person3);
+            
+            person.name = 'jerry';
+            
+            console.log("change name:"); 
+            console.log("person2: ",person2);//用展开运算符复制的对象，在原先更改内容后不会更改
+            console.log("person3:",person3);//用复制运算符复制的对象，原先更改后这个也跟着更改了
+
+            //复制对象的同时修改,合并属性
+            let person4 = {...person, name:'jack',address:'地球'};
+            console.log(person4);
+        </script>
+    </body> 
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>2_批量传递props</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+
+            //1.创建类式组件 
+            class Person extends React.Component{
+                //初始化状态
+                //在Weather的实例对象上面添加一个属性，名为state，值为一个对象
+                state = {wind:'微风',isHot:false};
+                
+                render(){
+                    const {name,sex,age} = this.props;//这样就不用在<li>里面一直写this.props.name等
+                    return(
+                        <ul>
+                            <li>姓名：{name}</li>
+                            <li>性别：{sex}</li>
+                            <li>年龄：{age}</li>
+                        </ul>
+                    );
+                } 
+            }
+
+            //2.渲染组件到页面
+            const p = {name:'tom',age:18,sex:'女'}
+            //ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex} />,document.getElementById('test'));
+            ReactDOM.render(<Person {...p}/>,document.getElementById('test'));
+            //使用{...p}需要保证load回来的数据和前面的名字保持一致
+            //这里的{}不是展开运算符克隆object，而是表示里面要写JS表达式了
+            //本身...不允许展开对象，但是这块React+Babel之后允许用...展开对象，但是仅仅适用于标签属性的传递
+
+        </script>
+
+    </body> 
+</html>
