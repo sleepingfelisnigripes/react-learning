@@ -16,6 +16,25 @@
     2. React组件中包含一系列的钩子函数(生命周期回调函数)，它会在特定的时刻调用
     3. 我们在定义组件时，会在特定的生命周期回调函数中，做特定的工作
 
-    
 
+挂载时(初始化)：        constructor          =>          componentWillMount            =>          render  =>  componentDidMount    --\
+                                                                                                                                     componentWillUnmount
+                                                                                                                                    /
+父组件render    coponentWillReceiveProps  =>  shouldComponentUpdate  =>  componentWillUpdate  =>  render  =>  componentDidUpdate   --
+
+生命周期的三个阶段： 
+    1. 初始化阶段: 由ReactDOM.render()触发 -- 初次渲染
+        1. constructor()
+        2. componentWillMount()
+        3. render()
+        4. componentDidMount() --- 常用!!!
+                一般在这个钩子中做一些初始化的事情，例如：开启定时器，发送网络请求，订阅消息
+    2. 更新阶段：由组件内部this.setState()或父组件重新render触发
+        1. shouldComponentUpdate()
+        2. componentWillUpdate()
+        3. render() --- 必须使用的一个
+        4. componentDidUpdate()
+    3. 卸载阶段： 由ReactDOM.unmountComponentAtNode()触发
+        1. componentWillUnmount() --- 常用!!!
+                一般在这个钩子中做一些收尾的事情，例如：定时器关闭，取消订阅消息
 
