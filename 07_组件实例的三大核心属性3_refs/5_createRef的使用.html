@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>5_createRef的使用</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        
+
+        <script type="text/babel">
+            //创建组件
+            class Demo extends React.Component{
+
+                
+                /*
+                    React.creatRef调用之后可以放回一个容器，该容器可以存储被ref所标识的节点,该容器是“专人专用”的
+                */
+                myRef = React.createRef();
+                myRef2 = React.createRef();
+
+                //展示左侧输入框的数据
+                showData = ()=> {
+                    //console.log(this.myRef.current.value);
+                    alert(this.myRef.current.value);
+                }
+                
+                //展示右侧输入框的数据
+                showData2 = ()=> {
+                    alert(this.myRef2.current.value);
+                }
+
+                render(){
+                    return(
+                        <div>
+                            {/*ref={c=>this.inputname=c}*/}
+                            <input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/><br/><br/>
+                            <button onClick={this.showData}>点我提示左侧数据</button><br/><br/>
+                            <input onBlur = {this.showData2} ref={this.myRef2} type="text" placeholder="点击按钮提示数据"/><br/><br/>
+                        </div>
+                    )
+                }
+            }
+            //渲染组件到页面
+            ReactDOM.render(<Demo/>,document.getElementById("test"));
+
+        </script>
+
+    </body> 
+</html>

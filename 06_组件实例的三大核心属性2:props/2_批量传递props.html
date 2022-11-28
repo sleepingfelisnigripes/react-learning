@@ -38,9 +38,10 @@
             }
 
             //2.渲染组件到页面
+            //批量的传递props/批量的传递标签属性
             const p = {name:'tom',age:18,sex:'女'}
             //ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex} />,document.getElementById('test'));
-            ReactDOM.render(<Person {...p}/>,document.getElementById('test'));
+            ReactDOM.render(<Person {...p}/>, document.getElementById('test'));
             //使用{...p}需要保证load回来的数据和前面的名字保持一致
             //这里的{}不是展开运算符克隆object，而是表示里面要写JS表达式了
             //本身...不允许展开对象，但是这块React+Babel之后允许用...展开对象，但是仅仅适用于标签属性的传递

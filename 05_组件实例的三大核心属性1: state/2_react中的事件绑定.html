@@ -23,6 +23,13 @@
             class Weather extends React.Component{
                 //借助构造器初始化状态以及在render读取使用
                 constructor(props){
+
+                    /*
+                        constructor在react只有两个作用：
+                            1. 通过给this.state赋值对象来初始化内部state
+                            2. 为事件处理绑定实例
+                    */
+
                     //有父类继承构造器必须调用super
                     super();
                     //this.state内容是对象

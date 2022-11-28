@@ -82,9 +82,13 @@
                 //含义是给Car的实例对象添加一个属性，名为a，值为1
                 wheel = 4; 
                 //但是外部传过来的值必须在构造器中写
+                
+                //给car本身加一个属性 
+                static demo = 100;
             }
             const c1 = new Car('XX牌子',199);
             console.log(c1);
+            console.log(Car.demo);
 
             /*
                 总结：

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>高级函数_函数柯里化</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        
+
+        <script type="text/babel">
+            
+            /*
+                输入类的DOM随着输入能把内容维护到状态里面去，等需要用的时候，直接从状态中取出来，就属于受控组件。
+                可以写受控写受控，因为受控可以省略到ref
+            */
+
+            //创建组件
+            class Login extends React.Component{
+
+                /*
+                    高阶函数：如果一个函数符合下面两个规范中的任何一个，那该函数就是高阶函数
+                        1. 若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数
+                        2. 若A函数，调用的返回值依然是一个函数，那么A就可以称之为高阶函数
+                        常见的高阶函数有：
+                            1. Promise：
+                                new Promise(()=>{})
+                            2: setTimeout
+                                setTimeout(()=>{})
+                            3. arr.map() 等等
+
+                    函数的柯里化：通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理
+                */
+
+                //初始化状态
+                state = {
+                    username:'',
+                    password:'',
+                }
+
+                //保存表单数据到状态中
+                //传入的参数应该是各种数据类型
+                //这个saveFormData就是【高阶函数】,【函数的柯里化】
+                //event是react生成的事件对象，没办法和dataType一起调用
+                saveFormData = (dataType)=>{
+                    console.log(dataType);
+                    return (event)=>{
+                        //console.log(dataType,event.target.value);
+                        this.setState({[dataType]:event.target.value});
+                    }
+                }
+
+                handleSubmit = (event)=>{
+                    event.preventDefault();//阻止表单的提交
+                    const {username,password} = this.state;
+                    //const {username, password} = this;
+                    alert(`你输入的用户名是：${username}，你输的的密码是：${password}`);
+                }
+
+                render(){
+                    return(
+                        <form onSubmit={this.handleSubmit}> {/*不用写action="http://..."，在handle里面写preventDefalut，之后靠ajax进行交互*/}
+                            用户名：<input onChange={this.saveFormData('username')} type="text" name="username"></input>
+                            密码：<input onChange={this.saveFormData('password')} type="password" name="password"></input>
+                            {/*
+                                不能直接写成saveFormData('username'),不然会变成将saveFormData('username')的返回值/结果进行回调，而不是回调saveFormData这个函数
+                                但是如果saveFormData返还不是一个值，而是一个函数，所以这样给onChange的还是一个函数(从formChange调用)
+                            */}
+                            <button>登录</button>
+                        </form>
+                    )
+                }
+            }
+            //渲染组件到页面
+            ReactDOM.render(<Login/>,document.getElementById("test"));
+        </script>
+
+    </body> 
+</html>

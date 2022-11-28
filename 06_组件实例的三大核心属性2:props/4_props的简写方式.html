@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>3_对props进行限制</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+        <div id="test1"></div>
+        <div id="test2"></div>
+
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <!--引入prop-types,用于对组件标签属性进行限制-->
+        <script src="https://unpkg.com/prop-types@15.8.1/prop-types.js"></script>
+
+        <!--babel说明这个脚本里面写的是jsx，靠babel给翻译一下，用JSX语法而不是JS--> <!--暂时先这么写，但是内容多的话babel翻译会很慢可能会白屏一段时间-->
+        <script type="text/babel">
+
+            //1.创建类式组件 
+            class Person extends React.Component{
+
+                //给类加两个属性propTypes和defaultRrops用static放在类里面
+                //对标签属性进行类型和必要性的限制
+                static propTypes = {
+                    //React.PropTypes对具体的属性进行限制(P大写)
+                    name:PropTypes.string.isRequired,//限制name必传，且为字符串
+                    sex:PropTypes.string,//限制sex为字符串
+                    age:PropTypes.number,//限制age为数值
+                    speak:PropTypes.func,//限制sepak函数
+                }
+
+                //指定默认标签属性值
+                static defaultProps = {
+                    sex: '不男不女',//sex默认为男
+                    age: 18,//age默认为18
+                }
+
+                //初始化状态 
+                state = {wind:'微风',isHot:false}; 
+                
+                render(){
+                    const {name,sex,age} = this.props;
+                                         
+                    return( 
+                        <ul>
+                            <li>姓名：{name}</li>   
+                            <li>性别：{sex}</li>
+                            <li>年龄：{age+1}</li> 
+                        </ul>
+                    );
+                }
+
+            }
+            
+            //2.渲染组件到页面
+
+            //需要限制：进行类型的限制(年龄是数值类型方便后面加减), 进行必要行的限制(name必须传), 给某一个属性指定一个默认值(性别没有的时候默认男)
+
+            ReactDOM.render(<Person name='tom' age={17} speak={speak}/>, document.getElementById('test'));
+            ReactDOM.render(<Person name='ben' sex='男'/>, document.getElementById('test1'));
+            const p = {name:'jerry',age:19,sex:'女'}
+            ReactDOM.render(<Person {...p}/>, document.getElementById('test2'));
+
+            function speak(){
+                console.log('我说话了');
+            }
+        </script>
+
+    </body> 
+</html>        

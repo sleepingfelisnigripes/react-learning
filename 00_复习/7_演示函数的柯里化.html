@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>7_演示函数的柯里化</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            //没有用函数的柯里化
+            function sum1(a,b,c){
+                return a+b+c
+            }
+            const result1 = sum1(1,2,3)
+            console.log("result1",result1);
+
+            //使用函数柯里化
+            function sum2(a){
+                return (b)=>{
+                    return (c)=>{
+                        return a+b+c
+                    }
+                }
+            }
+            const result2 = sum2(1)(2)(3)
+            console.log("result2: ",result2);
+        </script>
+    </body>
+</html>

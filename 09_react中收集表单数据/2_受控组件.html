@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>2_受控组件</title>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        
+
+        <script type="text/babel">
+            
+            /*
+                输入类的DOM随着输入能把内容维护到状态里面去，等需要用的时候，直接从状态中取出来，就属于受控组件。
+                可以写受控写受控，因为受控可以省略到ref
+            */
+
+            //创建组件
+            class Login extends React.Component{
+
+                //初始化状态
+                state = {
+                    username:'',
+                    password:'',
+                }
+
+                //保存用户名到状态中
+                saveUsername = (event)=>{
+                    //console.log(event.target.value);
+                    this.setState({username:event.target.value}); //使用username之前初始化一下
+                }
+
+                //保存密码到状态中
+                savePassword = (event)=>{
+                    //console.log(event.target.value);
+                    this.setState({password:event.target.value}); 
+                }
+
+                handleSubmit = (event)=>{
+                    event.preventDefault();//阻止表单的提交
+                    const {username,password} = this.state;
+                    //const {username, password} = this;
+                    alert(`你输入的用户名是：${username}，你输的的密码是：${password}`);
+                }
+
+                render(){
+                    return(
+                        <form onSubmit={this.handleSubmit}> {/*不用写action="http://..."，在handle里面写preventDefalut，之后靠ajax进行交互*/}
+                            用户名：<input onChange={this.saveUsername} type="text" name="username"></input>
+                            密码：<input onChange={this.savePassword} type="password" name="password"></input>
+                            <button>登录</button>
+                        </form>
+                    )
+                }
+            }
+            //渲染组件到页面
+            ReactDOM.render(<Login/>,document.getElementById("test"));
+        </script>
+
+    </body> 
+</html>
