@@ -44,7 +44,8 @@
                                 仅用于渲染列表用于展示，使用index作为key是没有问题的。
                         
                     3.开发中如何选择key？
-                        1）
+                        1）最好使用每条数据的唯一标识作为key，比如id,手机号,身份证号,学好等唯一标识
+                        2）如果确定只是简单的展示数据，用index也是可以的
 
             */
             
@@ -56,32 +57,32 @@
                             {id:1,name:'tom',age:18},
                             {id:2,name:'ben',age:19}
                         初始的虚拟DOM：
-                            <li key=0>tom---18</li>
-                            <li key=1>ben---19</li>
+                            <li key=0>tom---18<input type='text'/></li> -- 输入tom
+                            <li key=1>ben---19<input type='text'/></li> -- 输入ben
                         更新后的数据：
                             {id:3,name:'jerry',age:20}
                             {id:1,name:'tom',age:18},
                             {id:2,name:'ben',age:19}
                         更新后的初始的虚拟DOM：（进行diffing比较）
-                            <li key=0>jerry---20</li> --- 真实DOM
-                            <li key=1>tom---18</li> --- 真实DOM
-                            <li key=2>ben---19</li> --- 真实DOM
-                    --------------------------------------------------------
+                            <li key=0>jerry---20<input type='text'/></li> --- 真实DOM(input虚拟DOM) -- 显示tom ❌ input标签内属性一样，节点一样，所以原来的虚拟DOM所对应的真实DOM就给他用了
+                            <li key=1>tom---18<input type='text'/></li> --- 真实DOM(input虚拟DOM) -- 显示ben ❌
+                            <li key=2>ben---19<input type='text'/></li> --- 真实DOM
+                    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
                     慢动作回放 -- 使用id(数据的唯一标识)作为key
                         初始数据：
                             {id:1,name:'tom',age:18},
                             {id:2,name:'ben',age:19}
                         初始的虚拟DOM：
-                            <li key=1>tom---18</li>
-                            <li key=2>ben---19</li>
+                            <li key=1>tom---18<input type='text'/></li> -- 输入tom
+                            <li key=2>ben---19<input type='text'/></li> -- 输入ben
                         更新后的数据：
                             {id:3,name:'jerry',age:20}
                             {id:1,name:'tom',age:18},
                             {id:2,name:'ben',age:19}
                         更新后的初始的虚拟DOM：（进行diffing比较）
-                            <li key=3>jerry---20</li> --- 真实DOM✅
-                            <li key=1>tom---18</li> --- 虚拟DOM
-                            <li key=2>ben---19</li> --- 虚拟DOM
+                            <li key=3>jerry---20<input type='text'/></li> --- 真实DOM
+                            <li key=1>tom---18<<input type='text'/>/li> --- 虚拟DOM -- 显示tom✅
+                            <li key=2>ben---19<input type='text'/></li> --- 虚拟DOM -- 现实ben ✅
                 */
                 state = {
                     persons: [
@@ -92,7 +93,8 @@
                 add=() =>{
                     const {persons} = this.state
                     const p = {id:persons.length+1,name:'jerry',age:20}
-                    this.setState({persons:[p,...persons]})
+                    this.setState({persons:[p,...persons]}) //逆序添加，输入问题，效率低
+                    //this.setState({persons:[...persons,p]})这样就不会显示出input问题
                 }
                 render(){
                     return(
@@ -104,6 +106,7 @@
                                 {
                                     this.state.persons.map((personObj,index)=>{
                                         return <li key={index}>{personObj.name}---{personObj.age} <input type='text'/></li>
+                                        {/*input的信息框的内容在添加item之后错位*/}
                                     })
                                 }         
                             </ul>
@@ -114,6 +117,7 @@
                                 {
                                     this.state.persons.map((personObj)=>{
                                         return <li key={personObj.id}>{personObj.name}---{personObj.age} <input type='text'/></li>
+                                        {/*input的信息框的内容在添加item之后不会错位*/}
                                     })
                                 }         
                             </ul>
