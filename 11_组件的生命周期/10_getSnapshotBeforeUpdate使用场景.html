@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>10_getSnapshotBeforeUpdate使用场景</title>
+        <style>
+            .list{
+                width: 200px;
+                height: 150px;
+                background-color: skyblue;
+                overflow: auto;
+                /*overflow解决内容溢出问题*/
+            }
+            .news{
+                height: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--准备好一个‘容器’-->
+        <div id="test"></div>
+
+        <!--注意引入顺序-->
+        <!--引入react核心库-->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <!--引入react-dom.用于支持react操作DOM-->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--引入babel,用于将jsx转为js-->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        
+
+        <script type="text/babel">
+            class NewList extends React.Component{
+                state = {
+                    newsArr:[]
+                }
+
+                componentDidMount(){ 
+                    setInterval(()=>{
+                        //获取原状态
+                        const {newsArr} = this.state
+                        //模拟一条新闻
+                        const news = '新闻'+ (newsArr.length+1)
+                        //更新状态
+                        this.setState({newsArr:[news,...newsArr]})
+                    },1000)
+                }
+
+                getSnapshotBeforeUpdate(){
+                    return this.refs.list.scrollHeight
+                }
+
+                componentDidUpdate(props,state,height){
+                    this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+                    //注意这块是+=
+                }
+
+                render(){
+                    return (
+                        <div className="list" ref="list">
+                            {
+                                this.state.newsArr.map((n,index)=>{
+                                    return <div key="index" className="news">{n}</div>
+                                })
+                            }      
+                        </div>
+                    )
+                }
+            }
+        
+            //渲染组件
+            ReactDOM.render(<NewList/>,document.getElementById('test'))
+        </script>
+
+    </body> 
+</html>

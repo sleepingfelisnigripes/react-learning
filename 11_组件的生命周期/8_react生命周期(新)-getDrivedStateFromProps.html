@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>3_react生命周期(旧)-forceUpdate流程</title>
+        <title>8_react生命周期(新)-getDrivedStateFromProps</title>
     </head>
     <body>
         <!--准备好一个‘容器’-->
@@ -48,14 +48,18 @@
                     this.forceUpdate()
                 }
 
-                //组件将要挂载的钩子
-                componentWillMount(){
-                    console.log("Count---componentWillMount");
-                }
-
                 //组件挂载完毕的钩子
                 componentDidMount(){
                     console.log("Count---componentDidMount");
+                }
+
+                //此方法使用罕见用例，即state的值在任何时候都取决于props,可以使用
+                //派生状态会导致代码冗余，并使组件难以维护
+                static getDerivedStateFromProps(props, state){
+                    console.log('Count---getDerivedStateFromProps',props,state);
+                    return null
+                    //return {count:108} //返回状态对象，就回影响状态更新，会以这个props为主
+                    return props
                 }
 
                 //组件将要卸载的钩子
@@ -69,11 +73,6 @@
                 shouldComponentUpdate(){
                     console.log('Count---shouldComponentUpdate');
                     return true
-                }
-
-                //组件将要更新的钩子
-                componentWillUpdate(){
-                    console.log("Count---componentWillUpdate");
                 }
 
                 //组件更新完毕的钩子
@@ -94,6 +93,8 @@
                     )
                 }
             }
+        
+            //渲染组件
             ReactDOM.render(<Count/>,document.getElementById('test'))
         </script>
 

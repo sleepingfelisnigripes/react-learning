@@ -22,7 +22,7 @@
                                                                                                                                     /
 父组件render    coponentWillReceiveProps  =>  shouldComponentUpdate  =>  componentWillUpdate  =>  render  =>  componentDidUpdate   --
 
-生命周期的三个阶段： 
+旧的生命周期的三个阶段： 
     1. 初始化阶段: 由ReactDOM.render()触发 -- 初次渲染
         1. constructor()
         2. componentWillMount()
@@ -38,3 +38,38 @@
         1. componentWillUnmount() --- 常用!!!
                 一般在这个钩子中做一些收尾的事情，例如：定时器关闭，取消订阅消息
 
+新版本： 
+1. 废弃了三个钩子：
+    这些生命周期方法(componentWillMount，componentWillReceiveProps，componentWillUpdate)经常被误解和滥用，此外，我们预计，在异步渲染中，他们潜在的误用问题可能更大，我们将在即将发布的版本中为这些生命周期添加‘UNSAFE_‘前缀，
+    (这里的‘UNSAFE’不是指安全性，而是表示使用这些生命周期的代码在react的未来版本中更有可能出现bug，尤其是在启动异步渲染之后)
+
+    componentWillMount -> UNSAFE_componentWillMount
+    componentWillReceiveProps -> UNSAFE_componentWillreceiveProps
+    componentWillUpdate -> UNSAFE_componentWillUpdate
+
+2. 提出了两个新的钩子
+    getDerivedStateFromProps
+    getSnapshotBeforeUpdate
+    (实际使用用法罕见)
+
+新的生命周期的三个阶段：
+    1. 初始化阶段: 由ReactDOM.render()触发 -- 初次渲染
+        1. constructor()
+        2. getDerivedStateFromProps
+        3. render()
+        4. componentDidMount() --- 常用!!!
+                一般在这个钩子中做一些初始化的事情，例如：开启定时器，发送网络请求，订阅消息
+    2. 更新阶段：由组件内部this.setState()或父组件重新render触发
+        1. getDerivedStateFromProps
+        2. shouldComponentUpdate()
+        3. render() --- 必须使用的一个
+        4. componentDidUpdate()
+        5. getSnapshotBeforeUpdate
+    3. 卸载阶段： 由ReactDOM.unmountComponentAtNode()触发
+        1. componentWillUnmount() --- 常用!!!
+                一般在这个钩子中做一些收尾的事情，例如：定时器关闭，取消订阅消息
+
+三个重要的钩子：
+    1. render：初始化渲染或更新渲染调用
+    2. componentDidMount：开始监听，发送ajax请求
+    3. componentWillUnmount：做一些收尾工作，如清理定时数据器

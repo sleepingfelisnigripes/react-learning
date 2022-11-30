@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>7_react生命周期(新)</title>
+        <title>4_react生命周期(旧)-父组件render流程</title>
     </head>
     <body>
         <!--准备好一个‘容器’-->
@@ -15,7 +15,7 @@
         <!--引入react-dom.用于支持react操作DOM-->
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
         <!--引入babel,用于将jsx转为js-->
-        <script src="https://cdn.bootcdn.net/ajax/libs/babel-core/6.1.19/browser.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         
 
         <script type="text/babel">
@@ -49,8 +49,8 @@
                 }
 
                 //组件将要挂载的钩子
-                componentWillMount(){
-                    console.log("Count---componentWillMount");
+                UNSAFE_componentWillMount(){
+                    console.log("Count---UNSAFEcomponentWillMount");
                 }
 
                 //组件挂载完毕的钩子
@@ -72,12 +72,12 @@
                 }
 
                 //组件将要更新的钩子
-                componentWillUpdate(){
-                    console.log("Count---componentWillUpdate");
+                UNSAFE_componentWillUpdate(){
+                    console.log("Count---UNSAFEcomponentWillUpdate");
                 }
 
                 //组件更新完毕的钩子
-                componentDidlUpdate(){
+                componentDidUpdate(){
                     console.log("Count---componentDidUpdate");
                 }
 
@@ -94,7 +94,6 @@
                     )
                 }
             }
-
             //父组件
             class A extends React.Component{
                 //初始化状态
@@ -117,25 +116,9 @@
             class B extends React.Component{
 
                 //组件将要接收新的props的钩子（important：第一次不算）
-                componentWillReceiveProps(){
-                    console.log("B---componentWillReceivePorps");//点击button之后就是第二次，回现实这句话
+                UNSAFE_componentWillReceiveProps(){
+                    console.log("B---UNSAFEcomponentWillReceivePorps");//点击button之后就是第二次，回现实这句话
                 }
-                //控制组件更新的“阀门”
-                shouldComponentUpdate(){
-                    console.log('B---shouldComponentUpdate');
-                    return true
-                }
-
-                //组件将要更新的钩子
-                componentWillUpdate(){
-                    console.log("B---componentWillUpdate");
-                }
-
-                //组件更新完毕的钩子
-                componentDidlUpdate(){
-                    console.log("B---componentDidUpdate");
-                }
-
 
                 render(){
                     console.log("B---render");
