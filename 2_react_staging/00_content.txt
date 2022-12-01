@@ -1,0 +1,91 @@
+1. react脚手架 (全称是“创建一个基于react脚手架的模板项目”,简称“创建react脚手架”)
+    1. XXX脚手架：用来帮助程序员快速创建一个基于XXX库的模版项目
+        1. 包含了所有需要的配置(语法检查，jsx编译，devServer...)
+        2. 下载好了所有相关的依赖
+        3. 可以直接运行一个简单的效果
+    2. react提供了一个用于创建react项目的脚手架库: create-react-app
+    3. 项目的整体技术架构为: react+webpack+es6+eslint
+    4. 使用脚手架开发项目的特点：模块化，组件化，工程化
+        工程化: 如果在项目当中，用上webpack这种全自动的构建工具，可以称之为工程化的项目。
+               简单说，如果通过这个构建工具完成了一条龙服务，代码写完，剩下的流程自动走下去(编译，压缩等).
+
+2. 创建项目并启动步骤：
+    1. 全局安装：npm install -g create-react-app (需要了解npm yarn, 补习包和包管理器知识)
+    2. 切换到想创建项目的目录，使用命令 create-react-app 【应用的名字】(例如: react_staging)
+        创建成功会显示:
+        Success! Created react_staging at...
+            npm start
+                Starts the development server.
+
+            npm run build -- 整个应用都写完了，生成一下静态文件，交给后端部署上去，用这个
+                Bundles the app into static files for production.
+
+            npm test -- 几乎不用，通常直接用npm start看哪里有问题
+                Starts the test runner.
+
+            npm run eject -- 本来react隐藏了所有webpack相关的配置文件，该命令可以暴露出这些文件，并且不能再回去了
+                Removes this tool and copies build dependencies, configuration files and scripts into the app directory. If you do this, you can’t go back!
+
+        We suggest that you begin by typing:
+            cd react_staging
+            npm start
+    3. 进入项目文件夹， cd react_staging
+    4. 启动项目(在package.json可以查看执行命令) npm start
+
+3. 脚手架文件介绍
+    //运行之后界面显示: Edit src/App.js and save to reload
+
+    1. node_modules是依赖存放的地方(webpack就放在这).
+    2. public文件夹 --- 静态资源文件夹
+        favicon.ico --- 网站页签图标(必须是ico格式文件)
+        index.html --- 主页面(只有一个html文件，所以叫SPA(single page application单页面应用))
+        logo192.png --- logo图
+        logo512.png --- logo图
+        mainfest.json --- 应用加壳的配置文件
+        robots.txt --- 爬虫协议文件
+    3. src --- 源码文件夹
+        App.css --- App组件样式
+        App.js --- App组件
+        App.test.js --- 用于给App做测试(很少用)
+        index.css --- 样式(也可以放在public里面然后link连接到index.html)
+        index.js --- 入口文件
+        logo.svg --- logo图
+        reportWebVitals.js --- 页面性能分析文件(需要web-visits库的支持)
+
+4. 
+    在src文件夹里面放一个components文件夹，里面放各种组件，
+    比如想放Hello组件，就在components里面新建Hello文件夹(注意大写)，然后添加Hello.js和Hello.css，图片等和Hello组件相关的内容
+
+5. 区分组件和普通js文件，把和组件相关的文件首字母大写比如Hello.js，Hello.css等等
+    或者改成组件改成jsx后缀
+
+6. components文件夹下面每个组件的文件夹下的内容都可以叫index.js和index.css,这样App.js在引用的时候直接引用对应的组件文件夹名字就行
+
+7. 样式模块化:
+    如果App.js中两个模块引用的样式(比如className都叫title)发生冲突，那么后面的样式会把前面的覆盖。
+    1. 可以在css文件中写成.hello{.title{}}来区别不同文件里面的title
+    2. 对样式进行模块化，改成index.module.css, 然后js文件中改成import XXX from './index.module.css',最后className要变成{XXX.title}(title处改成对应样式名字)
+
+8. 代码片段快捷键
+    https://github.com/ults-io/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md
+    rcc - react class 片段
+    rfc - react function 片段
+
+9. 功能界面的组件化编码流程(通用)
+    1. 拆分界面，抽取组件(一般不好命名就是没有拆分好)
+    2. 实现静态组件:使用组件实现静态页面效果(没有交互，就是一个静态界面)
+    3. 实现动态组件：
+        1）动态显示初始化数据
+            a. 数据类型
+            b. 数据名称
+            c. 保存在哪个组件
+        2）交互(从绑定时间监听开始)
+    
+
+
+
+
+         
+
+ 
+     
