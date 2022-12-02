@@ -1,7 +1,7 @@
 # react-learning
 React learning and project practice.
 
-# content基于B站尚硅谷react教程
+content基于B站尚硅谷react教程
 
 1. React: 用于构建用户界面的javascript库 (发送请求❌, 处理数据❌, 操作DOM呈现界面✅)
 2. React是一个将数据渲染为HTML视图的开源Javascript库
