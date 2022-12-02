@@ -1,0 +1,14 @@
+1. 前置说明: 
+        1. React本身只关注于界面，并不包含发送ajax请求的代码
+        2. 前端应用需要通过ajax请求与后台进行交互(json数据)
+        2. react应用需要集成第三方ajax库或自己封装
+
+2. 常用的ajax请求库
+
+        1. jQuery: 比较重，如果需要另外引入，不建议使用
+        2. axio: 轻量级，建议使用
+            1）封装XmlHttpRequest对象的ajax
+            2）promise风格
+            3）可以用在浏览器和node服务器端
+
+yarn add axios 安装axios
