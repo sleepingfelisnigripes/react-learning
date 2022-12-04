@@ -6,7 +6,7 @@
 2. 常用的ajax请求库
 
         1. jQuery: 比较重，如果需要另外引入，不建议使用
-        2. axio: 轻量级，建议使用
+        2. axios: 轻量级，建议使用
             1）封装XmlHttpRequest对象的ajax
             2）promise风格
             3）可以用在浏览器和node服务器端
@@ -51,4 +51,36 @@ yarn add axios 安装axios
                     1.优点：可以配置多个代理，可以灵活的控制请求是否走代理
                     2.缺点：配置繁琐，前端请求资源时必须加前缀
 
-                
+
+4. 发送ajax请求有几种方式？可以用哪些东西发出一个ajax请求呢？
+        xhr  jQuery  
+             axios(promiss风格的)
+
+        其中jQuery和axios都是对xhr的封装
+        
+        另一个是内置的fetch 和xhr并列，fetch不用安装
+    
+    fetch：
+        原生函数，不再使用XmlHttpRequest对象提交ajax请求
+        老版本可能不支持
+        
+5. github搜索案例相关知识点
+        1. 设计状态时要考虑全面，例如带有网络请求的组件，要考虑请求失败怎么办。
+        2. ES6小知识点：解构赋值+重命名
+                let obj = {a:{b:1}} 
+                const {a} = obj; //传统解构赋值
+                const {a:{b}} = obj //连续解构赋值
+                const {a:{b:value}} = obj //连续解构赋值+重命名
+        3. 消息订阅与发布机制
+                1. 先订阅，再发送
+                2. 适用于任意组件间的通信
+                3. 要在组件的componentWillUmount中取消订阅
+        4. fetch发送请求(关注分离的设计思想)
+                try {
+                    const response = await fetch('/api/search/user2?q=${keyword}')
+                    const data = await response.json()
+                    console.log(data);
+                } catch (error) {
+                        console.log('请求出错',error)
+                }
+
