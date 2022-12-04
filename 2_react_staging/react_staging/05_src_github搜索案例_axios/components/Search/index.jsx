@@ -13,15 +13,15 @@ export default class Search extends Component {
     console.log(keyWord);
     //发送网络请求
     //github过多请求可能会让github认为有问题而拒绝返回值
-    //方法是写一个代理5000，让他get github数据，成功的话发回给3000，失败的话返回一个伪造的固定的数据
+    //方法是写一个代理5003，让他get github数据，成功的话发回给3000，失败的话返回一个伪造的固定的数据
     //3000给github发，主机名端口号都不一样，为什么没有跨域问题？github服务器用cors解决跨域 
-    //axios.get(`https://api.github.com/search/users?q=${keyWord}`).then(
-    //可以省略http://localhost:3000/api1//users到/api1//users
-    axios.get('/api1//users').then(
+    //axios.get(`http://localhost:3000/api1/search/users?q=${keyWord}`).then(
+    //可以省略`http://localhost:3000/api1/search/users?q=${keyWord}`到`/api1/search/users?q=${keyWord}`
+    axios.get(`/api1/search/users?q=${keyWord}`).then(
       response => {
-        console.log('successful',response.data);
+        console.log('successful',response.data.items);
         //请求成功后通知app更新状态
-        this.props.updateAppState({isLoading:false,users:response.data})
+        this.props.updateAppState({isLoading:false,users:response.data.items})
       },
       error => {
         console.log('failed',error);

@@ -12,7 +12,7 @@ export default class Search extends Component {
     PubSub.publish('atguigu',{isFirst:false,isLoading:true})
     
     //发送网络请求
-    axios.get('/api1//users').then(
+    axios.get(`/api1/search/users?q=${keyWord}`).then(
       response => {
         //请求成功后通知app更新状态
         /* this.props.updateAppState({isLoading:false,users:response.data}) */

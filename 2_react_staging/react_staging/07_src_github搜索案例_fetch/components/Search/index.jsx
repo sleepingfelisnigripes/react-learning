@@ -12,7 +12,7 @@ export default class Search extends Component {
     PubSub.publish('atguigu',{isFirst:false,isLoading:true})
     //#region 发送网络请求--使用axios
     //发送网络请求
-    /* axios.get('/api1//users').then(
+    /* axios.get(`/api1/search/users?q=${keyWord}`).then(
       response => {
         //请求成功后通知app更新状态
         //this.props.updateAppState({isLoading:false,users:response.data}) 
@@ -29,7 +29,7 @@ export default class Search extends Component {
     //#endregion
      
     //发送网络请求--使用fetch(未优化)
-    /* fetch('/api1//users').then(
+    /* fetch(`/api1/search/users?q=${keyWord}`).then(
       response => {
         console.log('server connects successfully');
         return response.json()
@@ -44,7 +44,7 @@ export default class Search extends Component {
     ) */
 
     //发送网络请求--使用fetch(优化)
-    /* fetch('/api1//users').then(
+    /* fetch(`/api1/search/users?q=${keyWord}`).then(
       response => {
         console.log('server connects successfully');
         return response.json()
@@ -57,10 +57,10 @@ export default class Search extends Component {
 
     //发送网络请求--使用fetch(进一步优化)(关注分离)
     try{
-      const response = await fetch('/api1//users')
+      const response = await fetch(`/api1/search/users?q=${keyWord}`)
       const data = await response.json()
-      console.log(data);
-      PubSub.publish('atguigu',{isLoading:false,users:data})
+      console.log(data.items);
+      PubSub.publish('atguigu',{isLoading:false,users:data.items})
     }catch (error){
       console.log('请求出错',error);
       PubSub.publish('atguigu',{isLoading:false,err:error.message})
