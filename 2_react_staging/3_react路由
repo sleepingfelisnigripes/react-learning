@@ -17,3 +17,25 @@
         1) 浏览器路由, value是component, 用于展示页面内容
         2) 注册路由: <Route path='/test component={Test}'>
         3) 工作过程: 当浏览器的path变为/test时, 当前路由组件就会变为Test组件 (路径是/home而不是/home.html,前者是路由，后者是页面)
+
+
+4. react-router的理解
+    1. react的一个插件
+    2. 专门用来实现一个spa应用
+    3. 基于react的项目基本都会用到此库
+    
+    以三个不同的包发布在npm上的,分别是:
+        react-router: 路由的核心库, 提供了很多的组件, 钩子
+        react-router-dom: 包括react-router所有内容, 并添加一些专门用于DOMe的组件, 例如<BrowserRouter>
+        react-router-native:包括react-router所有内容, 并添加一些专门用于react native的API, 例如<NativeRouter>
+    
+    和React Router5.x的对比: 
+        1. 内置组件的变化: 移出<switch/>, 新增<Routes>等
+        2. 语法的变化: component={about}变为element={<About/>}
+        3. 新增多个hook: useParams, userNavigate, useMatch等
+        4. 官方明确推荐函数式组件
+    
+    路由器router和路由route的区别: 1. 路由器是管理路由的
+
+
+
