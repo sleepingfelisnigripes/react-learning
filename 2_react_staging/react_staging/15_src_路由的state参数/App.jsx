@@ -1,6 +1,5 @@
 import React from 'react'
-import { NavLink, useRoutes, useInRouterContext} from 'react-router-dom'
-import Header from './components/Header'
+import { NavLink, useRoutes} from 'react-router-dom'
 import routes from './routes'
 
 
@@ -8,13 +7,13 @@ export default function App() {
 
   //根据路由表生成对应的路由规则
   const element = useRoutes(routes)
-  //如果组件在<Router>的上下文呈现，则useInRouterText返回真，否则返回假
-  // 就是包裹在BrowserRouter中的就是
-  console.log("useInRouterContext",useInRouterContext())
+
   return (
     <div>
       <div className="row">
-        <Header/>
+        <div className="col-xs-offset-2 col-xs-8">
+          <div className="page-header"><h2>React Router Demo</h2></div>
+        </div>
 			</div>
 			<div className="row">
         <div className="col-xs-2 col-xs-offset-2">

@@ -36,6 +36,24 @@
         4. 官方明确推荐函数式组件
     
     路由器router和路由route的区别: 1. 路由器是管理路由的
-
+5. component:
+    <BrowserRouter>
+    <HashRouter>
+    <Routes/> and <Route/>
+    <Link>
+    <NavLink>
+    <Navigate>
+    <Outlet>
+6. Hooks
+    useRoutes()
+    useNavigate()
+    useParams()
+    useSearchParams()
+    useLocation()
+    useMatch()
+    useInRouterContext()
+    useNavigationType()
+    useOutlet()
+    useResolvePath( )
 
 

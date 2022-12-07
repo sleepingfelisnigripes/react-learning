@@ -1,9 +1,7 @@
 import React from 'react'
-import { NavLink,Outlet, useOutlet} from 'react-router-dom'
+import { NavLink,Outlet} from 'react-router-dom'
 
 export default function Home() {
-    //useOutlet()作用是用来呈现当前组件中渲染的嵌套路由。
-    console.log("useOutlet",useOutlet())
     return (
         <div>
             <h3>Home组件内容</h3>
@@ -22,3 +20,4 @@ export default function Home() {
         </div>
     )
 }
+   
